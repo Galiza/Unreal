@@ -23,7 +23,6 @@ void UOpenDoor::BeginPlay()
 
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
-	// OpenAngle = InitialYaw + 90.f;
 
 	FindPressurePlate();
 	FindAudioComponent();
@@ -64,7 +63,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 void UOpenDoor::OpenDoor(float DeltaTime) 
 {
 	CurrentYaw = FMath::FInterpTo(CurrentYaw, OpenAngle, DeltaTime, OpenDoorVelocity);
-	RotateDoor(CurrentYaw);
+	RotateDoor();
 
 	CloseDoorSound = false;
 	if (!AudioComponent) {return;}
@@ -77,7 +76,7 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 void UOpenDoor::CloseDoor(float DeltaTime)
 {
 	CurrentYaw = FMath::FInterpTo(CurrentYaw, InitialYaw, DeltaTime, CloseDoorVelocity);
-	RotateDoor(CurrentYaw);
+	RotateDoor();
 
 	OpenDoorSound = false;
 	if (!AudioComponent) {return;}
@@ -87,7 +86,7 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 	CloseDoorSound = true;
 }
 
-void UOpenDoor::RotateDoor(float CurrentYaw)
+void UOpenDoor::RotateDoor()
 {
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;

@@ -26,7 +26,7 @@ public:
 
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
-	void RotateDoor(float CurrentYaw);
+	void RotateDoor();
 	float TotalMassOfActors() const;
 	void FindAudioComponent();
 	void FindPressurePlate();
